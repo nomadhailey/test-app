@@ -1,21 +1,21 @@
 import React from 'react'
 import { Container, PageList, PageNumber } from './PaginationStyles'
 
-const Pagination = ({ totalPages, getOrderList, currentPage }) => {
+const Pagination = ({ totalPages, setCurrentPage, currentPage }) => {
   const pageNumbers = []
 
   for (let i = 1; i <= Math.ceil(totalPages); i++) {
     pageNumbers.push(i)
   }
-  console.log('currentPage@@@@@', currentPage)
 
   return (
     <Container>
       <PageList>
         {pageNumbers.map((page) => (
           <PageNumber
-            onClick={() => getOrderList(page)}
-            className={page === currentPage + 1 && 'active'}>
+            key={page}
+            onClick={() => setCurrentPage(page)}
+            className={page === currentPage && 'active'}>
             {page}
           </PageNumber>
         ))}
@@ -24,4 +24,4 @@ const Pagination = ({ totalPages, getOrderList, currentPage }) => {
   )
 }
 
-export default Pagination
+export default React.memo(Pagination)

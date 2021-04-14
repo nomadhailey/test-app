@@ -1,13 +1,15 @@
 import styled from 'styled-components'
 
-export const Container = styled.div``
+export const Container = styled.div`
+  border: 1px solid #cdcdcd;
+  margin: 10px;
+  padding: 10px;
+  height: 20px;
+`
 
 export const OrderItem = styled.div`
   display: flex;
   justify-content: space-around;
-  margin: 10px;
-  padding: 10px;
-  border: 1px solid #cdcdcd;
   cursor: pointer;
 `
 

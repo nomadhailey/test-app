@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useCallback } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import AuthContext from '../../context/AuthContext'
 
@@ -18,17 +18,14 @@ const LogInNav = [
 const Header = () => {
   const location = useLocation()
   const currentLocation = location.pathname
-
-  // console.log('location', location)
   const { user, setUser } = useContext(AuthContext)
   const { token } = user
-  // console.log('token in header', token)
-  const logout = () => {
-    // sessionStorage.removeItem('token')
+  const logout = useCallback(() => {
+    sessionStorage.removeItem('token')
     setUser({
       token: null,
     })
-  }
+  }, [setUser])
 
   return (
     <Container>
@@ -39,36 +36,14 @@ const Header = () => {
             <NavItem
               key={nav.id}
               className={currentLocation === nav.url && 'active'}
-              onClick={nav.name === '로그아웃' && logout}>
+              onClick={nav.name === '로그아웃' ? logout : undefined}>
               <Link to={nav.url}>{nav.name}</Link>
             </NavItem>
           ))}
-          {/* <NavItem>
-            <Link to="/">서비스</Link>
-          </NavItem>
-          {token ? (
-            <>
-              <NavItem>
-                <Link to="/mypage/order">마이페이지</Link>
-              </NavItem>
-              <NavItem onClick={logout}>
-                <Link to="/logout">로그아웃</Link>
-              </NavItem>
-            </>
-          ) : (
-            <>
-              <NavItem>
-                <Link to="/sign-up">회원가입</Link>
-              </NavItem>
-              <NavItem>
-                <Link to="/login">로그인</Link>
-              </NavItem>
-            </>
-          )} */}
         </StyledUl>
       </Navigation>
     </Container>
   )
 }
 
-export default Header
+export default React.memo(Header)

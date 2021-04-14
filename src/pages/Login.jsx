@@ -1,8 +1,8 @@
 import React from 'react'
-import LoginForm from '../components/Login/LoginForm'
+import LoginMain from '../components/Login/LoginMain'
 
 const Login = () => {
-  return <LoginForm />
+  return <LoginMain />
 }
 
 export default Login

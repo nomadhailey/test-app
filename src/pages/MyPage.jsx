@@ -1,8 +1,8 @@
 import React from 'react'
-import MyPageComponent from '../components/MyPage/MyPageComponent'
+import MyPageMain from '../components/MyPage/MyPageMain'
 
 const MyPage = () => {
-  return <MyPageComponent />
+  return <MyPageMain />
 }
 
 export default MyPage
