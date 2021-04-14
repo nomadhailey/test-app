@@ -4,9 +4,9 @@
 
 ## 실행방법
 
-### 1) `npm install`
+#### 1) `npm install`
 
-### 2) `npm start`
+#### 2) `npm start`
 
 ## 구현 기능
 
@@ -19,10 +19,7 @@
 
 ## 기술 상세
 
-### 전역상태관리 : Context API
-
-### 비동기 통신: fetch API, async/await
-
-### 스타일 : styled-components
-
-### 기타 라이브러리 : classnames (조건부 스타일링을 위해 사용)
+- 전역상태관리 : Context API
+- 비동기 통신: fetch API, async/await
+- 스타일 : styled-components
+- 기타 라이브러리 : classnames (조건부 스타일링을 위해 사용)
