@@ -9,7 +9,6 @@ const signUpInputs = [
     text: '이메일',
     id: 'email',
     name: 'email',
-    //type = email로 설정할 경우, 이메일 형식(abc@abc.com)과 맞지 않을 경우 input 자체 설정된 문구가 뜸. 유효하지 않은 이메일일 경우 '이메일 확인 Alert'를 띄워야 하는데 input 자체 내장된 경고문구로 인해 기능 확인이 힘들어 불가피하게 type : '' 로 설정
     type: '',
     placeholder: 'abc@wncoms.com',
     hello: 'test',
@@ -52,9 +51,7 @@ const SignUpMain = () => {
         [name]: value,
       })
       if (name === 'password') {
-        setIsPasswordValid(
-          value.length >= 8 && value.length <= 15 ? true : false,
-        )
+        setIsPasswordValid(value.length >= 8 && value.length <= 15)
       }
     },
     [values],
@@ -63,23 +60,14 @@ const SignUpMain = () => {
   const validCheck = useCallback((e) => {
     const emailRegExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i
     const { name, value } = e.target
-    setIsEmailValid(name === 'email' && emailRegExp.test(value) ? true : false)
+    setIsEmailValid(name === 'email' && emailRegExp.test(value))
   }, [])
 
   const history = useHistory()
 
-  const options = {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      email,
-      password,
-      mobile,
-    }),
-  }
   const { requestData: signUp } = useAsync({
     urlDetail: '/sign-up',
-    options,
+    optionsData: { email, password, mobile },
   })
 
   const focusRef = useRef(null)

@@ -37,17 +37,10 @@ const LoginMain = () => {
     },
     [values],
   )
-  const options = {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      email,
-      password,
-    }),
-  }
+
   const { requestData: login } = useAsync({
     urlDetail: '/login',
-    options,
+    optionsData: { email, password },
   })
 
   const handleSubmit = useCallback(

@@ -1,13 +1,18 @@
 import { useState, useCallback } from 'react'
 import { URL } from '../config'
 
-const useAsync = ({ urlDetail, options = {} }) => {
+const useAsync = ({ urlDetail, optionsData = {} }) => {
   const [isLoading, setIsLoading] = useState(false)
   const [response, setResponse] = useState(null)
 
   const url = `${URL}${urlDetail}`
 
   const requestData = useCallback(async () => {
+    const options = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(optionsData),
+    }
     setIsLoading(true)
     try {
       const res = await fetch(url, options)
@@ -20,7 +25,7 @@ const useAsync = ({ urlDetail, options = {} }) => {
     } finally {
       setIsLoading(false)
     }
-  }, [options, url])
+  }, [optionsData, url])
 
   return { isLoading, response, requestData }
 }
