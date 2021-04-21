@@ -1,5 +1,5 @@
 import React, { useContext, useCallback } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, NavLink, useLocation } from 'react-router-dom'
 import AuthContext from '../../context/AuthContext'
 
 import { Container, Logo, Navigation, StyledUl, NavItem } from './HeaderStyles'
@@ -33,12 +33,23 @@ const Header = () => {
       <Navigation>
         <StyledUl>
           {(token ? LogInNav : MainNav).map((nav) => (
-            <NavItem
-              key={nav.id}
-              className={currentLocation === nav.url && 'active'}
-              onClick={nav.name === '로그아웃' ? logout : undefined}>
-              <Link to={nav.url}>{nav.name}</Link>
+            <NavItem>
+              <NavLink
+                key={nav.id}
+                // activeClassName="active"
+                exact={true}
+                activeStyle={{ color: 'lightseagreen', fontWeight: 'bold' }}
+                to={nav.url}
+                onClick={nav.name === '로그아웃' ? logout : undefined}>
+                {nav.name}
+              </NavLink>
             </NavItem>
+            // <NavItem
+            //   key={nav.id}
+            //   className={currentLocation === nav.url && 'active'}
+            //   onClick={nav.name === '로그아웃' ? logout : undefined}>
+            //   <Link to={nav.url}>{nav.name}</Link>
+            // </NavItem>
           ))}
         </StyledUl>
       </Navigation>
