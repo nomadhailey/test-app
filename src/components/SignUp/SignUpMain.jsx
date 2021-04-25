@@ -2,6 +2,7 @@ import React, { useContext, useState, useRef, useCallback } from 'react'
 import { useHistory } from 'react-router-dom'
 import AuthContext from '../../context/AuthContext'
 import useAsync from '../../hooks/useAsync'
+import useInput from '../../hooks/useInput'
 import Form from '../common/Form/Form'
 
 const signUpInputs = [
@@ -36,26 +37,19 @@ const signUpInputs = [
   },
 ]
 const SignUpMain = () => {
-  const [values, setValues] = useState({})
-  const { email, password, passwordCheck, mobile } = values
+  const [
+    { email, password, passwordCheck, mobile },
+    handleChange,
+    isPasswordValid,
+  ] = useInput({
+    email: '',
+    password: '',
+    passwordCheck: '',
+    mobile: '',
+  })
   const [isEmailValid, setIsEmailValid] = useState(null)
-  const [isPasswordValid, setIsPasswordValid] = useState(null)
 
   const { setUser } = useContext(AuthContext)
-
-  const handleChange = useCallback(
-    (e) => {
-      const { name, value } = e.target
-      setValues({
-        ...values,
-        [name]: value,
-      })
-      if (name === 'password') {
-        setIsPasswordValid(value.length >= 8 && value.length <= 15)
-      }
-    },
-    [values],
-  )
 
   const validCheck = useCallback((e) => {
     const emailRegExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i
@@ -71,6 +65,7 @@ const SignUpMain = () => {
   })
 
   const focusRef = useRef(null)
+
   const handleSubmit = useCallback(
     async (e) => {
       e.preventDefault()

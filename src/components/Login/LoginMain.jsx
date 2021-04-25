@@ -1,8 +1,9 @@
-import React, { useState, useContext, useCallback } from 'react'
+import React, { useContext, useCallback } from 'react'
 import { useHistory } from 'react-router-dom'
 import AuthContext from '../../context/AuthContext'
 import Form from '../common/Form/Form'
 import useAsync from '../../hooks/useAsync'
+import useInput from '../../hooks/useInput'
 
 const loginInputs = [
   {
@@ -10,7 +11,7 @@ const loginInputs = [
     id: 'email',
     name: 'email',
     type: 'email',
-    placeholder: 'abc@wncoms.com',
+    placeholder: 'abc@abc.com',
   },
   {
     text: '비밀번호',
@@ -22,21 +23,12 @@ const loginInputs = [
 ]
 
 const LoginMain = () => {
-  const [values, setValues] = useState({})
-  const { email, password } = values
+  const [{ email, password }, handleChange] = useInput({
+    email: '',
+    password: '',
+  })
   const { setUser } = useContext(AuthContext)
   const history = useHistory()
-
-  const handleChange = useCallback(
-    (e) => {
-      const { name, value } = e.target
-      setValues({
-        ...values,
-        [name]: value,
-      })
-    },
-    [values],
-  )
 
   const { requestData: login } = useAsync({
     urlDetail: '/login',

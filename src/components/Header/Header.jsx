@@ -1,5 +1,5 @@
 import React, { useContext, useCallback } from 'react'
-import { Link, NavLink, useLocation } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 import AuthContext from '../../context/AuthContext'
 
 import { Container, Logo, Navigation, StyledUl, NavItem } from './HeaderStyles'
@@ -16,8 +16,8 @@ const LogInNav = [
 ]
 
 const Header = () => {
-  const location = useLocation()
-  const currentLocation = location.pathname
+  // const location = useLocation()
+  // const currentLocation = location.pathname
   const { user, setUser } = useContext(AuthContext)
   const { token } = user
   const logout = useCallback(() => {
@@ -33,10 +33,9 @@ const Header = () => {
       <Navigation>
         <StyledUl>
           {(token ? LogInNav : MainNav).map((nav) => (
-            <NavItem>
+            <NavItem key={nav.id}>
               <NavLink
                 key={nav.id}
-                // activeClassName="active"
                 exact={true}
                 activeStyle={{ color: 'lightseagreen', fontWeight: 'bold' }}
                 to={nav.url}
@@ -44,12 +43,6 @@ const Header = () => {
                 {nav.name}
               </NavLink>
             </NavItem>
-            // <NavItem
-            //   key={nav.id}
-            //   className={currentLocation === nav.url && 'active'}
-            //   onClick={nav.name === '로그아웃' ? logout : undefined}>
-            //   <Link to={nav.url}>{nav.name}</Link>
-            // </NavItem>
           ))}
         </StyledUl>
       </Navigation>

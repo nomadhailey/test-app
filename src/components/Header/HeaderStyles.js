@@ -22,8 +22,8 @@ export const StyledUl = styled.ul`
 
 export const NavItem = styled.li`
   padding: 5px 10px;
-  &.active {
+  /* &.active {
     color: lightseagreen;
     font-weight: bold;
-  }
+  } */
 `
